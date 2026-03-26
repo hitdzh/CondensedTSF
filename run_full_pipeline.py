@@ -153,7 +153,7 @@ def run_command(cmd, description, error_stop=True):
             check=True,
             capture_output=True,
             text=True,
-            timeout=3600  # 1 hour timeout
+            timeout=360000  # 10 hour timeout
         )
 
         print(result.stdout)
