@@ -12,6 +12,11 @@ DATA_NAME=weather
 ALGORITHMS=kcenter,herding
 K=2000
 
+# ============= 跳过预训练配置 =============
+SKIP_PRETRAIN=False
+# 当 SKIP_PRETRAIN=True 时，指定已训练的编码器路径
+PRETRAINED_PATH=
+
 # ============= 预训练参数 =============
 SEQ_LEN=336
 LABEL_LEN=96
@@ -47,6 +52,16 @@ LOG_FILE=logs/${DATA_NAME}_${ALGORITHMS}_k${K}.log
 # ============= 执行 =============
 export CUDA_VISIBLE_DEVICES=$GPU_ID
 
+# 构建参数
+PRETRAIN_ARGS=""
+if [ "$SKIP_PRETRAIN" = "True" ] || [ "$SKIP_PRETRAIN" = "true" ]; then
+    if [ -z "$PRETRAINED_PATH" ]; then
+        echo "错误: SKIP_PRETRAIN=True 时必须指定 PRETRAINED_PATH"
+        exit 1
+    fi
+    PRETRAIN_ARGS="--skip_pretrain --pretrained_path $PRETRAINED_PATH"
+fi
+
 python -u run_full_pipeline.py \
     --data_name $DATA_NAME \
     --data_path $DATA_PATH \
@@ -74,4 +89,5 @@ python -u run_full_pipeline.py \
     --pretrain_lr $PRETRAIN_LR \
     --mask_ratio $MASK_RATIO \
     --patience $PATIENCE \
-    --gpu $GPU_ID > $LOG_FILE 2>&1
+    --gpu $GPU_ID \
+    $PRETRAIN_ARGS > $LOG_FILE 2>&1
