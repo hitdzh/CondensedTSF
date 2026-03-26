@@ -248,7 +248,7 @@ def get_latest_encoder_path(base_path):
     base_name = os.path.basename(base_path).replace('.pth', '')
 
     # 搜索匹配模式的文件
-    pattern = f'{base_name}_encoder_only_*.pth'
+    pattern = f'{base_name}_*.pth'
     encoder_files = glob.glob(os.path.join(save_dir, pattern))
 
     if not encoder_files:
@@ -261,8 +261,9 @@ def get_latest_encoder_path(base_path):
     # 提取ID并找到最新的
     def extract_id(filepath):
         try:
-            # 从文件名中提取ID，如: base_encoder_only_001.pth -> 1
-            id_part = filepath.replace(f'{base_name}_encoder_only_', '').replace('.pth', '')
+            # 从文件名中提取ID，如: patchtst_pretrained_weather_encoder_only_001.pth -> 1
+            filename = os.path.basename(filepath)
+            id_part = filename.replace(f'{base_name}_', '').replace('.pth', '')
             return int(id_part)
         except ValueError:
             return 0

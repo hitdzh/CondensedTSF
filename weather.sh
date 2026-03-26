@@ -13,9 +13,9 @@ ALGORITHMS=kcenter,herding
 K=2000
 
 # ============= 跳过预训练配置 =============
-SKIP_PRETRAIN=False
+SKIP_PRETRAIN=True
 # 当 SKIP_PRETRAIN=True 时，指定已训练的编码器路径
-PRETRAINED_PATH=
+PRETRAINED_PATH=./outpus/checkpoints/patchtst_pretrained_weather_encoder_only_001.pth
 
 # ============= 预训练参数 =============
 SEQ_LEN=336
