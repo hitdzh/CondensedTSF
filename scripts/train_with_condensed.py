@@ -81,6 +81,8 @@ def parse_args():
                         help='移动平均窗口')
     parser.add_argument('--factor', type=int, default=1,
                         help='注意力因子')
+    parser.add_argument('--distil', type=bool, default=True,
+                        help='是否使用知识蒸馏 (Informer)')
     parser.add_argument('--dropout', type=float, default=0.1,
                         help='Dropout 率')
     parser.add_argument('--embed', type=str, default='timeF',

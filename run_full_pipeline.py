@@ -383,10 +383,12 @@ def train_single_model(args, model_name, condensed_dir):
         '--seq_len', str(args.seq_len),
         '--label_len', str(args.label_len),
         '--pred_len', str(args.pred_len),
+        '--factor', '1',
+        '--distil', 'False',
         '--epochs', str(args.epochs),
         '--batch_size', str(args.batch_size),
         '--learning_rate', str(args.learning_rate),
-        '--patience', str(args.patience),
+        '--patience', '999999',  # 禁用早停
         '--gpu', str(args.gpu),
         '--use_gpu', 'True'
     ]
